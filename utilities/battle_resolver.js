@@ -1,4 +1,6 @@
-const {playerBank, enemyBank, itemBank} = require('../data/temp_db.js');
+const db = require('./postgres_config.js');
+const {selectSinglePlayer} = require('../data/player_data.js');
+const {selectSingleEnemy} = require('../data/enemy_data.js');
 
 module.exports = async function(player, enemy) {
     let playerCoefficient;
