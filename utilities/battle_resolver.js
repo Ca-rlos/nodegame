@@ -32,16 +32,14 @@ module.exports = async function(player, enemy) {
 
     await db.query(selectSinglePlayer, [player], (err, result) => {
           if (err) {
-            return next(err);
+            return err;
           }
-          return result.rows;
           battleCoefficient('player', result.rows.health, result.rows.attack, result.rows.defense, result.rows.speed)
         });
     await db.query(selectSingleEnemy, [enemy], (err, result) => {
           if (err) {
-            return next(err);
+            return err;
           }
-          return result.rows;
           battleCoefficient('enemy', result.rows.health, result.rows.attack, result.rows.defense, result.rows.speed)
         });
     await battleResolve();
