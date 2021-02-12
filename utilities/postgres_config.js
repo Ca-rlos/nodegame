@@ -1,7 +1,7 @@
 const {Pool} = require('pg');
 const pool = new Pool({
   user: 'postgres',
-  host: localhost,
+  host: 'localhost',
   database: 'gameworld',
   port: 5432,
   password: process.env.PG_PASSWORD

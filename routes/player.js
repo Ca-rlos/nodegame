@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../utilities/postgres_config.js');
-const {selectSinglePlayer} = require('../utilities/data/player_data.js');
+const {selectSinglePlayer} = require('../data/player_data.js');
 
 router.get('/player', function(req, res, next) {
   const playerName = req.query.name;
