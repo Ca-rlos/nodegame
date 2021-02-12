@@ -1,10 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const {playerBank} = require('../data/temp_db');
+const db = require('../utilities/postgres_config.js');
+const {selectSinglePlayer} = require('../utilities/data/player_data.js');
 
-router.get('/player', function(req, res) {
-  player = req.query.name;
-  res.send(playerBank[player]);
+router.get('/player', function(req, res, next) {
+  const playerName = req.query.name;
+  db.query(selectSinglePlayer, [playerName], (err, result) => {
+    if (err) {
+      return next(err);
+    }
+    res.send(result.rows);
+  });
 });
 
 module.exports = router;
