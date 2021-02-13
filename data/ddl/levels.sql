@@ -1,4 +1,4 @@
 CREATE TABLE LEVELS (
-    level character varying,
+    level integer,
     experience integer
 );
