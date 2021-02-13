@@ -20,7 +20,7 @@ module.exports = function(player, enemy, res) {
     const battleResolve = function (expGranted) {
         if (playerCoefficient > enemyCoefficient) {
             let battleResult = 'player victory';
-            db.query(updatePlayerExperience, [player, expGranted], async (err, result) => {
+            db.query(updatePlayerExperience, [expGranted, player], async (err, result) => {
                 if (err) {
                     return err;
                 }
