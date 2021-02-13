@@ -1,9 +1,10 @@
 const db = require('./postgres_config.js');
 const {selectBattleParticipants} = require('../data/battle_data.js');
 
-module.exports = function(player, enemy) {
+module.exports = function(player, enemy, res) {
     let playerCoefficient;
     let enemyCoefficient;
+    let battleResult;
     const battleCoefficient = function(target, health, attack, defense, speed) {
         const healthScore = health * .4;
         const attackScore = attack * .15;
@@ -19,22 +20,22 @@ module.exports = function(player, enemy) {
     const battleResolve = function () {
         if (playerCoefficient > enemyCoefficient) {
             let battleResult = 'player victory';
-            return battleResult;
+            res.send(battleResult);
         } else if (playerCoefficient < enemyCoefficient) {
             let battleResult = 'enemy victory';
-            return battleResult;
+            res.send(battleResult);
         } else if (playerCoefficient == enemyCoefficient) {
             let battleResult = 'draw';
-            return battleResult;
+            res.send(battleResult);
         };
     };
-    db.query(selectBattleParticipants, [player, enemy], (err, result) => {
-            if (err) {
-                return err;
-            }
-            result.rows.forEach(element => {
-                battleCoefficient(element.name, element.health, element.attack, element.defense, element.speed);
-            });
-            battleResolve();
+    db.query(selectBattleParticipants, [player, enemy], async (err, result) => {
+        if (err) {
+            return err;
+        }
+        await result.rows.forEach(element => {
+            battleCoefficient(element.name, element.health, element.attack, element.defense, element.speed);
         });
+        await battleResolve();
+    });
 };
