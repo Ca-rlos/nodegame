@@ -1,8 +1,7 @@
 const db = require('./postgres_config.js');
-const {selectSinglePlayer} = require('../data/player_data.js');
-const {selectSingleEnemy} = require('../data/enemy_data.js');
+const {selectBattleParticipants} = require('../data/battle_data.js');
 
-module.exports = async function(player, enemy) {
+module.exports = function(player, enemy) {
     let playerCoefficient;
     let enemyCoefficient;
     const battleCoefficient = function(target, health, attack, defense, speed) {
@@ -11,12 +10,12 @@ module.exports = async function(player, enemy) {
         const defenseScore = defense * .15;
         const speedScore = speed * .15;
         const totalScore = healthScore + attackScore + defenseScore + speedScore;
-        if (target == 'player') {
+        if (target == player) {
             playerCoefficient = totalScore;
-        } else if (target == 'enemy') {
+        } else if (target == enemy) {
             enemyCoefficient = totalScore;
         }
-    }
+    };
     const battleResolve = function () {
         if (playerCoefficient > enemyCoefficient) {
             let battleResult = 'player victory';
@@ -29,18 +28,13 @@ module.exports = async function(player, enemy) {
             return battleResult;
         };
     };
-
-    await db.query(selectSinglePlayer, [player], (err, result) => {
-          if (err) {
-            return err;
-          }
-          battleCoefficient('player', result.rows.health, result.rows.attack, result.rows.defense, result.rows.speed)
+    db.query(selectBattleParticipants, [player, enemy], (err, result) => {
+            if (err) {
+                return err;
+            }
+            result.rows.forEach(element => {
+                battleCoefficient(element.name, element.health, element.attack, element.defense, element.speed);
+            });
+            battleResolve();
         });
-    await db.query(selectSingleEnemy, [enemy], (err, result) => {
-          if (err) {
-            return err;
-          }
-          battleCoefficient('enemy', result.rows.health, result.rows.attack, result.rows.defense, result.rows.speed)
-        });
-    await battleResolve();
 };
