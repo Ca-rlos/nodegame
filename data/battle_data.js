@@ -5,5 +5,8 @@ module.exports = {
                      UNION ALL
                      SELECT * 
                      FROM ENEMIES 
-                     WHERE NAME = $2`
+                     WHERE NAME = $2`,
+    updatePlayerExperience: `UPDATE PLAYERS
+                    SET EXPERIENCE = EXPERIENCE + $1
+                    WHERE NAME= $2`
     };

@@ -1,5 +1,5 @@
 const db = require('./postgres_config.js');
-const {selectBattleParticipants} = require('../data/battle_data.js');
+const {selectBattleParticipants, updatePlayerExperience} = require('../data/battle_data.js');
 
 module.exports = function(player, enemy, res) {
     let playerCoefficient;
@@ -17,9 +17,14 @@ module.exports = function(player, enemy, res) {
             enemyCoefficient = totalScore;
         }
     };
-    const battleResolve = function () {
+    const battleResolve = function (expGranted) {
         if (playerCoefficient > enemyCoefficient) {
             let battleResult = 'player victory';
+            db.query(updatePlayerExperience, [player, expGranted], async (err, result) => {
+                if (err) {
+                    return err;
+                }
+            });
             res.send(battleResult);
         } else if (playerCoefficient < enemyCoefficient) {
             let battleResult = 'enemy victory';
@@ -36,6 +41,6 @@ module.exports = function(player, enemy, res) {
         await result.rows.forEach(element => {
             battleCoefficient(element.name, element.health, element.attack, element.defense, element.speed);
         });
-        await battleResolve();
+        await battleResolve(result.rows[1].experience);
     });
 };
