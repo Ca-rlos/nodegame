@@ -10,9 +10,9 @@ router.get('/player', require('./player'));
 
 router.get('/enemy', require('./enemy'));
 
-router.get('/item', require('./item'));
+router.get('/item', require('./items'));
 
-router.get('/item/all', require('./item'));
+router.get('/item/all', require('./items'));
 
 router.get('/battle', require('./battle'));
 
