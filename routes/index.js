@@ -8,6 +8,12 @@ router.get('/', function(req, res, next) {
 
 router.get('/player', require('./player'));
 
+router.get('/enemy', require('./enemy'));
+
+router.get('/item', require('./item'));
+
+router.get('/item/all', require('./item'));
+
 router.get('/battle', require('./battle'));
 
 module.exports = router;
