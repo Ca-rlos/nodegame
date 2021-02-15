@@ -18,18 +18,18 @@ module.exports = function(player, enemy, res) {
                 if (err) {
                     return err;
                 }
-                switch(result.rows.stat) {
+                switch(result.rows[0].stat) {
                     case 'health':
-                        healthScore = healthScore + result.rows.bonus;
+                        healthScore = healthScore + result.rows[0].bonus;
                         break;
                     case 'attack':
-                        attackScore = attackScore + result.rows.bonus;
+                        attackScore = attackScore + result.rows[0].bonus;
                         break;
                     case 'defense':
-                        defenseScore = defenseScore + result.rows.bonus;
+                        defenseScore = defenseScore + result.rows[0].bonus;
                         break;
                     case 'speed':
-                        speedScore = speedScore + result.rows.bonus;
+                        speedScore = speedScore + result.rows[0].bonus;
                         break;
                     default:
                         console.log('no bonus applied!');
