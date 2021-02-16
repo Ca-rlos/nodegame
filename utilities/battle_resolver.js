@@ -7,7 +7,7 @@ module.exports = function(player, enemy, res) {
     let playerCoefficient;
     let enemyCoefficient;
     let battleResult;
-    const battleCoefficient = function(target, health, attack, defense, speed) {
+    const battleCoefficient = function(target, health, attack, defense, speed, item) {
         let healthScore = health * .4;
         let attackScore = attack * .15;
         let defenseScore = defense * .15;
@@ -41,30 +41,7 @@ module.exports = function(player, enemy, res) {
             return err;
         }
         await result.rows.forEach(element => {
-            if (element.item !== null) {
-                db.query(selectSingleItem, [element.item], (err, result) => {
-                    if (err) {
-                        return err;
-                    }
-                    switch(result.rows[0].stat) {
-                        case 'health':
-                            element.health = element.health + result.rows[0].bonus;
-                            break;
-                        case 'attack':
-                            element.attack = element.attack + result.rows[0].bonus;
-                            break;
-                        case 'defense':
-                            element.defense = element.defense + result.rows[0].bonus;
-                            break;
-                        case 'speed':
-                            element.speed = element.speed + result.rows[0].bonus;
-                            break;
-                        default:
-                            console.log('no bonus applied!');
-                    }
-                });
-            };
-            battleCoefficient(element.name, element.health, element.attack, element.defense, element.speed);
+            battleCoefficient(element.name, element.health, element.attack, element.defense, element.speed, element.item);
         });
         await battleResolve(result.rows[1].experience);
     });
