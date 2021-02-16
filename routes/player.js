@@ -25,8 +25,9 @@ router.put('/player/item', function(req, res, next) {
 });
 
 router.delete('/player/item', function(req, res, next) {
+  const itemCode = req.query.code;
   const playerName = req.query.player;
-  db.query(deleteSingleItem, [playerName], (err, result) => {
+  db.query(deleteSingleItem, [itemCode, playerName], (err, result) => {
     if (err) {
       return next(err);
     }

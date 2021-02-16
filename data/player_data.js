@@ -47,5 +47,5 @@ module.exports = {
                         FROM ITEMS 
                         WHERE CODE = $1
                      ) 
-                     WHERE NAME = $1`
+                     WHERE NAME = $2`
     };
