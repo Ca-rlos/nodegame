@@ -4,28 +4,48 @@ module.exports = {
                      WHERE NAME = $1`,
     updateSingleItem: `UPDATE PLAYERS 
                      SET ITEM = $1,
-                     SET HEALTH = HEALTH + (
+                     HEALTH = HEALTH + (
                         SELECT HEALTH
                         FROM ITEMS 
                         WHERE CODE = $1
-                     )
-                     SET ATTACK = ATTACK + (
+                     ), 
+                     ATTACK = ATTACK + (
                         SELECT ATTACK
                         FROM ITEMS 
                         WHERE CODE = $1
-                     )
-                     SET DEFENSE = DEFENSE + (
+                     ), 
+                     DEFENSE = DEFENSE + (
                         SELECT DEFENSE
                         FROM ITEMS 
                         WHERE CODE = $1
-                     )
-                     SET SPEED = SPEED + (
+                     ), 
+                     SPEED = SPEED + (
                         SELECT SPEED
                         FROM ITEMS 
                         WHERE CODE = $1
-                     )
+                     ) 
                      WHERE NAME = $2`,
     deleteSingleItem: `UPDATE PLAYERS
-                     SET ITEM = NULL
+                     SET ITEM = NULL, 
+                     HEALTH = HEALTH - (
+                        SELECT HEALTH
+                        FROM ITEMS 
+                        WHERE CODE = $1
+                     ), 
+                     ATTACK = ATTACK - (
+                        SELECT ATTACK
+                        FROM ITEMS 
+                        WHERE CODE = $1
+                     ), 
+                     DEFENSE = DEFENSE - (
+                        SELECT DEFENSE
+                        FROM ITEMS 
+                        WHERE CODE = $1
+                     ), 
+                     SPEED = SPEED - (
+                        SELECT SPEED
+                        FROM ITEMS 
+                        WHERE CODE = $1
+                     ) 
                      WHERE NAME = $1`
     };
