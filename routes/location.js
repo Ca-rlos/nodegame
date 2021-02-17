@@ -15,7 +15,7 @@ router.get('/location', function(req, res, next) {
 
 router.get('/location/zone', function(req, res, next) {
     const zoneCode = req.query.zone;
-    db.query(selectSingleLocation, [zoneCode], (err, result) => {
+    db.query(selectSingleZone, [zoneCode], (err, result) => {
         if (err) {
           return next(err);
         }
