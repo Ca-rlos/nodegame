@@ -28,4 +28,10 @@ router.get('/item/all', require('./items'));
 
 router.get('/battle', require('./battle'));
 
+// Location management.
+
+router.get('/location', require('./location'));
+
+router.get('/location/zone', require('./location'));
+
 module.exports = router;
