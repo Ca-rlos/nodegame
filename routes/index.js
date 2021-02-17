@@ -14,6 +14,8 @@ router.put('/player/item', require('./player'));
 
 router.delete('/player/item', require('./player'));
 
+router.put('/player/zone', require('./player'));
+
 // Enemy management.
 
 router.get('/enemy', require('./enemy'));

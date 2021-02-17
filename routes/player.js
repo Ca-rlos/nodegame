@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../utilities/postgres_config.js');
-const {selectSinglePlayer, updateSingleItem, deleteSingleItem} = require('../data/player_data.js');
+const {selectSinglePlayer, updateSingleItem, deleteSingleItem, updatePlayerZone} = require('../data/player_data.js');
 
 router.get('/player', function(req, res, next) {
   const playerName = req.query.name;
@@ -32,6 +32,17 @@ router.delete('/player/item', function(req, res, next) {
       return next(err);
     }
     res.send('item removed!');
+  });
+});
+
+router.put('/player/zone', function(req, res, next) {
+  const zoneCode = req.query.code;
+  const playerName = req.query.player;
+  db.query(updatePlayerZone, [zoneCode, playerName], (err, result) => {
+    if (err) {
+      return next(err);
+    }
+    res.send('new zone: ' + zoneCode);
   });
 });
 

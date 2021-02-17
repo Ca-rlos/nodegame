@@ -47,5 +47,8 @@ module.exports = {
                         FROM ITEMS 
                         WHERE CODE = $1
                      ) 
-                     WHERE NAME = $2`
+                     WHERE NAME = $2`,
+    updatePlayerZone: `UPDATE PLAYERS 
+                      SET ZONE_CODE = $1
+                      WHERE NAME = $2`
     };
