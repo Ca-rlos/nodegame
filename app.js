@@ -6,7 +6,7 @@ const logger = require('morgan');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const passport = require('passport');
-const {passportLocal, passportBasic} = require('../utilities/authentication.js')
+const {passportLocal, passportBasic} = require('./utilities/authentication.js')
 const indexRouter = require('./routes/index');
 const app = express();
 
