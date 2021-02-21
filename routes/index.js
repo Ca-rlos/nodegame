@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const passport = require('passport');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -8,7 +9,7 @@ router.get('/', function(req, res, next) {
 
 // Player management.
 
-router.get('/player', require('./player'));
+router.get('/player', passport.authenticate('local', {failureRedirect: '/'}), require('./player'));
 
 router.put('/player/item', require('./player'));
 

@@ -50,5 +50,9 @@ module.exports = {
                      WHERE NAME = $2`,
     updatePlayerZone: `UPDATE PLAYERS 
                       SET ZONE_CODE = $1
-                      WHERE NAME = $2`
+                      WHERE NAME = $2`,
+    authenticateUser: `SELECT USERNAME 
+                        FROM PLAYERS
+                        WHERE NAME = $1
+                        AND PASSWORD = $2`
     };
