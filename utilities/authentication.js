@@ -11,7 +11,7 @@ module.exports = {
                 if (err) {
                 return next(err);
                 } else if (username == result.rows[0].name) {
-                    return done(null, user)
+                    return done(null, username)
                 } else if (username != result.rows[0].name) {
                     return done(null, false)
                 }
