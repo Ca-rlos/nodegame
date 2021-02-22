@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
 
 // Player management.
 
-router.get('/player', passport.authenticate('local', {failureRedirect: '/'}), require('./player'));
+router.get('/player', passport.authenticate('local', {passReqToCallback: true, session: false, failureRedirect: '/'}), require('./player'));
 
 router.put('/player/item', require('./player'));
 
