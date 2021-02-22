@@ -2,6 +2,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const BasicStrategy = require('passport-http').BasicStrategy;
 const db = require('./postgres_config.js');
+const {authenticateUser} = require('../data/player_data.js')
 
 module.exports = {
     passportLocal: passport.use(new LocalStrategy(
