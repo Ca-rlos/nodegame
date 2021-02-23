@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../utilities/postgres_config.js');
-const {selectSinglePlayer, updateSingleItem, deleteSingleItem, updatePlayerZone} = require('../data/player_data.js');
+const {selectSinglePlayer, updateSingleItem, deleteSingleItem, updatePlayerZone, createPlayer} = require('../data/player_data.js');
 
 router.get('/player', function(req, res, next) {
   const playerName = req.query.name;
@@ -10,6 +10,18 @@ router.get('/player', function(req, res, next) {
       return next(err);
     }
     res.send(result.rows);
+  });
+});
+
+router.post('/player', function(req, res, next) {
+  const playerName = req.query.name;
+  const playerClass = req.query.class;
+  const playerPassword = req.query.password;
+  db.query(createPlayer, [playerName, playerClass, playerPassword], (err, result) => {
+    if (err) {
+      return next(err);
+    }
+    res.send('player created!');
   });
 });
 

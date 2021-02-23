@@ -11,6 +11,8 @@ router.get('/', function(req, res, next) {
 
 router.get('/player', passport.authenticate('local', {passReqToCallback: true, session: false, failureRedirect: '/'}), require('./player'));
 
+router.post('/player', passport.authenticate('local', {passReqToCallback: true, session: false, failureRedirect: '/'}), require('./player'));
+
 router.put('/player/item', passport.authenticate('local', {passReqToCallback: true, session: false, failureRedirect: '/'}), require('./player'));
 
 router.delete('/player/item', passport.authenticate('local', {passReqToCallback: true, session: false, failureRedirect: '/'}), require('./player'));
