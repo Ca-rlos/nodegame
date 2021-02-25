@@ -19,6 +19,10 @@ router.delete('/player/item', passport.authenticate('local', {passReqToCallback:
 
 router.put('/player/zone', passport.authenticate('local', {passReqToCallback: true, session: false, failureRedirect: '/'}), require('./player'));
 
+// Provisional
+
+router.put('/player/avatar', passport.authenticate('local', {passReqToCallback: true, session: false, failureRedirect: '/'}), require('./player'));
+
 // Enemy management.
 
 router.get('/enemy', passport.authenticate('local', {passReqToCallback: true, session: false, failureRedirect: '/'}), require('./enemy'));

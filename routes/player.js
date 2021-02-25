@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const db = require('../utilities/postgres_config.js');
 const {selectSinglePlayer, updateSingleItem, deleteSingleItem, updatePlayerZone, createPlayer} = require('../data/player_data.js');
+//Provisional
+const {generateAvatar} = require('../utilities/avatar_generator');
 
 router.get('/player', function(req, res, next) {
   const playerName = req.query.name;
@@ -56,6 +58,12 @@ router.put('/player/zone', function(req, res, next) {
     }
     res.send('new zone: ' + zoneCode);
   });
+});
+
+// Provisional
+
+router.put('/player/avatar', function(req, res, next) {
+  generateAvatar();
 });
 
 module.exports = router;
