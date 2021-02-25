@@ -21,7 +21,7 @@ router.put('/player/zone', passport.authenticate('local', {passReqToCallback: tr
 
 // Provisional
 
-router.put('/player/avatar', passport.authenticate('local', {passReqToCallback: true, session: false, failureRedirect: '/'}), require('./player'));
+router.put('/player/avatar', require('./player'));
 
 // Enemy management.
 
