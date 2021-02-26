@@ -54,8 +54,8 @@ module.exports = {
     authenticateUser: `SELECT NAME 
                         FROM PLAYERS
                         WHERE NAME = $1
-                        AND PASSWORD = $2`,
+                        AND PASSWORD = CRYPT($2, PASSWORD)`,
     createPlayer: `INSERT INTO PLAYERS
                     (NAME, CLASS, PASSWORD)
-                    VALUES ($1, $2, $3)`
+                    VALUES ($1, $2, CRYPT($3, GEN_SALT('bf')))`
     };
