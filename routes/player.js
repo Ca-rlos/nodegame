@@ -63,7 +63,7 @@ router.put('/player/zone', function(req, res, next) {
 // Provisional
 
 router.put('/player/avatar', function(req, res, next) {
-  generateAvatar();
+  res.send(generateAvatar());
 });
 
 module.exports = router;
