@@ -1,4 +1,4 @@
-
+// This is a temporary solution. Look away from the horrors in this file. Sheesh.
 
 module.exports = {
     generateAvatar: function () { 
